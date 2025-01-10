@@ -5,10 +5,12 @@ Initiative to list musl compatible library ( mostly the one that declared writte
 Compatibility with all Linux distributions is not guaranteed. A list of distributions on which this has been successfully tested is provided in the 'Currently Tested' section.
 
 ## Environment Specification
+| Toolchain      | Version      |
+| ------------- | ------------- |
+| [rustup](https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe) | 1.27.1 (54dd3d00f 2024-04-24) |
+| rustc  | 1.83.0 (90b35a623 2024-11-26) |
 
-- [rustup](https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe) 1.27.1 (54dd3d00f 2024-04-24)
 
-- rustc 1.83.0 (90b35a623 2024-11-26)
 
 ## How (Windows)
 Simply follow instruction to [setup Visual C++ Build Tools for Rust development](https://learn.microsoft.com/en-us/windows/dev-environment/rust/setup)
