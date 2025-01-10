@@ -1,13 +1,36 @@
 ## Rust Experimental
 Initiative to list musl compatible library ( mostly the one that declared written in pure rust) for cross compile compatibility
 
-## How
+## Disclaimer
+Compatibility with all Linux distributions is not guaranteed. A list of distributions on which this has been successfully tested is provided in the 'Currently Tested' section.
+
+## Environment Specification
+```sh
+rustup 1.27.1 (54dd3d00f 2024-04-24)
+rustc 1.83.0 (90b35a623 2024-11-26)
+```
+
+## How (Windows)
+Simply follow instruction to [setup Visual C++ Build Tools for Rust development](https://learn.microsoft.com/en-us/windows/dev-environment/rust/setup)
+
+Below is summarized version
+- Download and Open [vs_BuildTools](https://aka.ms/vs/17/release/vs_BuildTools.exe). Make sure to check Desktop development with C++
+- Create/Modify Cargo.toml file in %USERPROFILE%/.cargo/ folder as follows :
+```toml
+[target.x86_64-unknown-linux-musl]
+linker = "rust-lld"
+```
+Add musl target and compile as follows :
 ```sh
 $ rustup target add x86_64-unknown-linux-musl
 $ cargo build --release --target=x86_64-unknown-linux-musl
 ```
-## Currently Tested
+## Currently Tested (Env : Rocky Linux)
 - [umya_spreadsheet](https://github.com/mathnya/umya-spreadsheet) (replacement for [xlsxwriter](https://docs.rs/xlsxwriter/latest/xlsxwriter/), able to read spreadsheet too!)
+
+## What to Avoid
+- OpenSSL
+- zstd
 
 ## Notes
 - reqwest: configuring TLS to work with musl is a pain, just disabled features entirely.

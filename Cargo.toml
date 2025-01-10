@@ -4,9 +4,14 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-umya-spreadsheet = "2.2.1"
+# Tries to order dependencies from most to least used
 reqwest = { version = "0.12.12", default-features = false, features = ["cookies", "json", "stream"] }
+actix-web = { version = "4.9.0", default-features = false, features = ["macros", "compress-brotli", "compress-gzip", "cookies", "http2", "unicode", "compat", "secure-cookies"] }
+serde_json = "1.0.135"
+dotenvy = "0.15.7"
+anyhow = "1.0.95"
+# Below are niche dependencies, remove if not needed
 tokio = { version = "1.43.0", features = ["full"] }
 tokio-macros = { version = "2.5.0" }
-serde_json = "1.0.135"
-anyhow = "1.0.95"
+umya-spreadsheet = "2.2.1"
+russh = "0.49.2"
