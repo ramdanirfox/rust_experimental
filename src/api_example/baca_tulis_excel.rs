@@ -1,8 +1,17 @@
-pub fn fn_satu() {
+use actix_web::{HttpResponse, Responder};
+
+fn fn_satu() {
     println!("Terpanggil Fn Satu!");
 }
 
-pub fn fn_tulis_xlsx() {
+pub async fn baca_tulis_excel() -> impl Responder {
+    fn_satu();
+    fn_tulis_xlsx();
+    HttpResponse::Ok().json("Excel Ditulis dan Dibaca!")
+}
+
+
+fn fn_tulis_xlsx() {
     use umya_spreadsheet::*;
     let mut book = new_file();
 
