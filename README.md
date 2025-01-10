@@ -1,4 +1,8 @@
 ## Rust Experimental
+![image](https://upload.wikimedia.org/wikipedia/commons/d/d5/Rust_programming_language_black_logo.svg)
+![image](https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Heart_icon_red_hollow.svg/45px-Heart_icon_red_hollow.svg.png)
+![image](https://upload.wikimedia.org/wikipedia/commons/f/f0/Musl_libc.svg)
+
 Initiative to list musl compatible library ( mostly the one that declared written in pure rust) for cross compile compatibility
 
 ## Disclaimer
