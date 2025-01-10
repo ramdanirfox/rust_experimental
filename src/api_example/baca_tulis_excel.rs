@@ -1,9 +1,11 @@
-use actix_web::{HttpResponse, Responder};
+use actix_web::{get, HttpResponse, Responder};
 
 fn fn_satu() {
     println!("Terpanggil Fn Satu!");
 }
 
+#[utoipa::path(responses((status = OK, body = String)))]
+#[get("/baca_tulis_excel")]
 pub async fn baca_tulis_excel() -> impl Responder {
     fn_satu();
     fn_tulis_xlsx();

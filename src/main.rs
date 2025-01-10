@@ -1,34 +1,15 @@
 use actix_cors::Cors;
-use actix_web::{error, http::header, HttpResponse};
-use rust_experimental::path;
-// use serde_json::json;
+use actix_web::{error, http::header, middleware::Logger, HttpResponse};
+use rust_experimental::{path, shared};
 mod permintaan_http;
-// use permintaan_http::*;
-// use tokio::net::TcpListener;
-// use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use dotenvy::dotenv;
-// use tokio;
-use actix_web::{get, web, App, HttpServer, Responder};
+use actix_web::{web, App, HttpServer};
+use utoipa_actix_web::AppExt;
 
-// #[get("/hello/{name}")]
-// async fn greet(name: web::Path<String>) -> impl Responder {
-//     format!("Hello {}!", name)
-// }
 
 #[tokio::main]
 async fn main() -> std::io::Result<()> {
     dotenv().ok();
-
-    // println!("Hello, world!");
-    // fn_satu();
-    // fn_tulis_xlsx();
-    // println!("Berhasil menulis!");
-    // // fn_dua().await;
-    // // http_request::fn_akses_http().await;
-    // let a = fn_akses_http()
-    //     .await
-    //     .unwrap_or(json!({"error":"something wrong"}));
-    // println!("Hasil Dua {:#?}", a);
 
     println!("Server Berjalan 8999");
 
@@ -48,10 +29,22 @@ async fn main() -> std::io::Result<()> {
             });
 
         // App::new().service(greet)
-        App::new()
-            .wrap(cors)
+        let (app, api) = App::new()
+            .into_utoipa_app()
             .configure(path::config)
-            .app_data(json_cfg)
+            // .service(scope::scope("/"))
+            // .split_for_parts()
+            // .openapi(ApiDoc::openapi())
+            .map(|app| {
+                app.wrap(Logger::default())
+                .wrap(cors)
+                .app_data(json_cfg)
+            })
+            .split_for_parts();
+        println!("{}", api.to_pretty_json().unwrap());
+        shared::set_data(api.to_json().unwrap().to_string());
+        app
+        
     })
     .bind(("0.0.0.0", 8999))?
     .run()
