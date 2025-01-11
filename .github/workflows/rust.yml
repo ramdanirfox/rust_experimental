@@ -26,10 +26,21 @@ jobs:
     - run: echo 'linker = "rust-lld"' >> ~/.cargo/config
     - name: Membangun versi musl
       run: cargo build --release --target=x86_64-unknown-linux-musl
-    - name: Arsipkan hasil kompilasi dengan target musl
-      uses: actions/upload-artifact@v4
-      with:
-        name: code-coverage-report
-        path: target/x86_64-unknown-linux-musl/release/rust_experimental
+    # - name: Arsipkan hasil kompilasi dengan target musl
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: code-coverage-report
+    #     path: target/x86_64-unknown-linux-musl/release/rust_experimental
     # - name: Run tests
     #   run: cargo test --verbose
+     - name: Arsipkan artifak ke direktori awal
+       run:  zip -r rust_experimental_linux_musl.zip target/x86_64-unknown-linux-musl/release/rust_experimental
+     - name: Buat rilis otomatis
+      uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: "continous"
+        prerelease: false
+        title: "Rilis CI Otomatis"
+        files: |
+          rust_experimental_linux_musl.zip
