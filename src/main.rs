@@ -42,7 +42,8 @@ async fn main() -> std::io::Result<()> {
             })
             .split_for_parts();
         // println!("{}", api.to_pretty_json().unwrap());
-        shared::set_data(api.to_json().unwrap().to_string());
+        let json_value: serde_json::Value = serde_json::from_str(&api.to_json().unwrap().to_string()).unwrap();
+        shared::set_data(json_value);
         app
         
     })

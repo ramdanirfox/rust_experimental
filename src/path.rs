@@ -13,7 +13,7 @@ use crate::{api_example, shared};
 pub async fn tes() -> impl Responder {
     HttpResponse::Ok().json("API is ok")
 }
-#[utoipa::path(responses((status = OK, body = String)))]
+#[utoipa::path(responses((status = OK, body = serde_json::Value)))]
 #[get("/")]
 pub async fn path_root() -> impl Responder {
     // HttpResponse::Ok().json(ApiDoc::openapi().to_pretty_json().unwrap())
