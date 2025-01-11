@@ -33,9 +33,9 @@ jobs:
     #     path: target/x86_64-unknown-linux-musl/release/rust_experimental
     # - name: Run tests
     #   run: cargo test --verbose
-     - name: Arsipkan artifak ke direktori awal
-       run:  zip -r rust_experimental_linux_musl.zip target/x86_64-unknown-linux-musl/release/rust_experimental
-     - name: Buat rilis otomatis
+    - name: Arsipkan artifak ke direktori awal
+      run:  zip -r rust_experimental_linux_musl.zip target/x86_64-unknown-linux-musl/release/rust_experimental
+    - name: Buat rilis otomatis
       uses: "marvinpinto/action-automatic-releases@latest"
       with:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
