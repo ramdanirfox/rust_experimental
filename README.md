@@ -5,6 +5,8 @@
 
 Initiative to list musl compatible library ( mostly the one that declared written in pure rust) for cross compile compatibility
 
+[![Rust](https://github.com/ramdanirfox/rust_experimental/actions/workflows/rust.yml/badge.svg)](https://github.com/ramdanirfox/rust_experimental/actions/workflows/rust.yml)
+
 ## Disclaimer
 Compatibility with all Linux distributions is not guaranteed. A list of distributions on which this has been successfully tested is provided in the 'Currently Tested' section.
 
