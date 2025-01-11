@@ -41,7 +41,7 @@ async fn main() -> std::io::Result<()> {
                 .app_data(json_cfg)
             })
             .split_for_parts();
-        println!("{}", api.to_pretty_json().unwrap());
+        // println!("{}", api.to_pretty_json().unwrap());
         shared::set_data(api.to_json().unwrap().to_string());
         app
         

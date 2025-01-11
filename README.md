@@ -41,6 +41,8 @@ $ cargo build --release --target=x86_64-unknown-linux-musl
 ## Notes
 - reqwest: configuring TLS to work with musl is a pain, just disabled features entirely.
 
+https://rhysd.github.io/actionlint/
+
 ## Caveats
 - reqwest: No support for accessing https resource
 
