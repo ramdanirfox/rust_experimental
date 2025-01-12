@@ -1,6 +1,6 @@
 use actix_web::{get, HttpResponse, Responder};
 
-use crate::{api_example, shared};
+use crate::{api_example, helper::shared};
 
 // #[derive(OpenApi)]
 // #[openapi(
@@ -28,5 +28,7 @@ pub fn config(cfg: &mut utoipa_actix_web::service_config::ServiceConfig) {
         .service(path_root)
         .service(tes)
         .service(api_example::baca_tulis_excel::baca_tulis_excel)
+        .service(api_example::akses_http::akses_http_net)
+        .service(api_example::akses_http::akses_http_env)
         ;
 }
