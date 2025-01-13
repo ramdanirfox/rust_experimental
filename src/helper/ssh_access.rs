@@ -4,16 +4,11 @@ use std::net::ToSocketAddrs;
 /// Run this example with:
 /// cargo run --example client_exec_simple -- -k <private key path> <host> <command>
 ///
-use std::path::{Path, PathBuf};
-use std::str::FromStr;
 use std::sync::Arc;
 use std::time::Duration;
 
-use anyhow::{Result};
+use anyhow::Result;
 use async_trait::async_trait;
-// use clap::Parser;
-use key::PrivateKeyWithHashAlg;
-// use log::info;
 use russh::keys::*;
 use russh::*;
 use tokio::io::AsyncWriteExt;
@@ -40,13 +35,27 @@ pub async fn initialize_ssh() -> Result<()> {
 
     // let addr = "localhost:22".to_socket_addrs().unwrap().next().unwrap();
     // let mut ssh = Session::connect_password(AsRef::<str>::as_ref("root"), "root", addr).await?;
-    let password_str = "pw";
-    let addresses_tuple = ("localhost", 22);
+    let password_str = std::env::var("SSH_PASSWORD_TEST").unwrap_or("env_undefined".to_string());
+    let user_str = std::env::var("SSH_USERNAME_TEST").unwrap_or("env_undefined".to_string());
+    let addresses_tuple = (std::env::var("SSH_ADDRESS_TEST").unwrap_or("env_undefined".to_string()), 22);
     println!("Menghubungkan");
     // let t: tokio::task::JoinHandle<Result<()>> = tokio::spawn(async move {
-    let mut ssh = Session::connect_password(password_str, "user", addresses_tuple).await?;
-    println!("Connected");
-    ssh.close().await?;
+    let mut ssh = Session::connect_password(password_str, user_str, addresses_tuple).await;
+    match ssh {
+        Ok(mut ssh) => {
+            // Handle the successful connection
+            // ...
+            println!("Connected");
+            let cmd = std::env::var("SSH_COMMAND_TEST").unwrap_or("env_undefined".to_string());
+            let res = ssh.call(cmd.as_str()).await?;
+            println!("Output: {}", std::char::from_u32(res).unwrap());
+            ssh.close().await?;
+        }
+        Err(err) => {
+            eprintln!("Error connecting: {}", err);
+            return Err(err);
+        }
+    }
     // Ok(())
     // });
     
