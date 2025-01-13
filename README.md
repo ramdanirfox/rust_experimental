@@ -35,6 +35,9 @@ $ cargo build --release --target=x86_64-unknown-linux-musl
 ```
 ## Currently Tested (Env : Rocky Linux)
 - [umya_spreadsheet](https://github.com/mathnya/umya-spreadsheet) (replacement for [xlsxwriter](https://docs.rs/xlsxwriter/latest/xlsxwriter/), able to read spreadsheet too!)
+- actix-web
+- utoipa (OpenAPI docs generator)
+- reqwest
 
 ## What to Avoid
 - OpenSSL
