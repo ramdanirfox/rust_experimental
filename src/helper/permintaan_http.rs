@@ -50,6 +50,14 @@ pub async fn fn_akses_http(paramurl: String) -> Result<Value> {
 
     println!("url: {}", url);
 
+    let mut headers = reqwest::header::HeaderMap::new();
+    headers.insert("User-Agent", reqwest::header::HeaderValue::from_static("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0"));
+    
+    // Consider marking security-sensitive headers with `set_sensitive`.
+    // let mut auth_value = header::HeaderValue::from_static("secret");
+    // auth_value.set_sensitive(true);
+    // headers.insert(header::AUTHORIZATION, auth_value);
+
     let client = ClientBuilder::new()
         .cookie_store(true)
         // .use_rustls_tls()
@@ -59,6 +67,7 @@ pub async fn fn_akses_http(paramurl: String) -> Result<Value> {
         .no_zstd()
         .redirect(Policy::limited(20))
         // .http1_allow_obsolete_multiline_headers_in_responses(true)
+        .default_headers(headers)
         .build();
 
     println!("client built {:#?}", client);

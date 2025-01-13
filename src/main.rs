@@ -1,5 +1,5 @@
 use actix_cors::Cors;
-use actix_web::{error, http::header, middleware::Logger, HttpResponse};
+use actix_web::{error, http::header::{self, HeaderName}, middleware::Logger, HttpResponse};
 use rust_experimental::{helper, path};
 use dotenvy::dotenv;
 use actix_web::{web, App, HttpServer};
@@ -17,8 +17,20 @@ async fn main() -> std::io::Result<()> {
         let cors = Cors::default()
             .allow_any_origin()
             .allowed_methods(vec!["GET", "POST", "DELETE", "PUT", "PATCH", "OPTIONS"])
-            .allowed_headers(vec![header::AUTHORIZATION, header::ACCEPT])
-            .allowed_header(header::CONTENT_TYPE)
+            .allowed_headers(vec![
+                header::AUTHORIZATION, 
+                header::ACCEPT, 
+                header::CONTENT_TYPE, 
+                header::USER_AGENT, 
+                header::IF_MODIFIED_SINCE,
+                header::DNT,
+                header::CACHE_CONTROL,
+                HeaderName::from_static("x-customheader"),
+                HeaderName::from_static("keep-alive"),
+                HeaderName::from_static("x-requested-with"),
+                HeaderName::from_static("if-modified-since")
+                ])
+            // .allowed_header()
             .max_age(7200);
 
         let json_cfg = web::JsonConfig::default()
