@@ -11,6 +11,7 @@ use rustls_platform_verifier::BuilderVerifierExt;
 pub struct SystemTimeProvider;
 
 impl TimeProvider for SystemTimeProvider {
+
     fn current_time(&self) -> Option<rustls::pki_types::UnixTime> {
         SystemTime::now()
             .duration_since(SystemTime::UNIX_EPOCH)

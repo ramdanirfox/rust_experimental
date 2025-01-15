@@ -1,5 +1,5 @@
 use actix_web::{get, HttpResponse, Responder};
-use serde_json::{json, Value};
+use serde_json::json;
 
 use crate::helper;
 
