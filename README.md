@@ -23,7 +23,7 @@ Simply follow instruction to [setup Visual C++ Build Tools for Rust development]
 
 Below is summarized version
 - Download and Open [vs_BuildTools](https://aka.ms/vs/17/release/vs_BuildTools.exe). Make sure to check Desktop development with C++
-- Create/Modify Cargo.toml file in %USERPROFILE%/.cargo/ folder as follows :
+- Create/Modify `config.toml` file in `%USERPROFILE%/.cargo/` folder as follows :
 ```toml
 [target.x86_64-unknown-linux-musl]
 linker = "rust-lld"
