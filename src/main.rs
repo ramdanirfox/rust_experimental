@@ -11,6 +11,12 @@ use helper::shared;
 async fn main() -> std::io::Result<()> {
     dotenv().ok();
 
+    let service_host= std::env::var("SERVICE_HOST").unwrap_or("0.0.0.0".to_string());
+    let service_port: u16 = std::env::var("SERVICE_PORT")
+        .ok()
+        .and_then(|s| s.trim().parse::<u16>().ok())
+        .unwrap_or(8999u16);
+
     println!("Server Berjalan 8999");
 
     HttpServer::new(|| {
@@ -59,7 +65,7 @@ async fn main() -> std::io::Result<()> {
         app
         
     })
-    .bind(("0.0.0.0", 8999))?
+    .bind((service_host, service_port))?
     .run()
     .await
 }
