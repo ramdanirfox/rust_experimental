@@ -17,7 +17,7 @@ async fn main() -> std::io::Result<()> {
         .and_then(|s| s.trim().parse::<u16>().ok())
         .unwrap_or(8999u16);
 
-    println!("Server Berjalan 8999");
+    println!("Server Berjalan {} : {}", service_host, service_port);
 
     HttpServer::new(|| {
         let cors = Cors::default()
