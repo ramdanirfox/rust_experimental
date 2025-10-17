@@ -33,5 +33,7 @@ pub fn config(cfg: &mut utoipa_actix_web::service_config::ServiceConfig) {
         .service(api_example::akses_ssh::akses_ssh)
         .service(api_example::akses_ftp::akses_ftp)
         .service(api_example::akses_mysql::akses_mysql)
+        .service(api_example::akses_mysql::akses_mysql)
+        .service(api_example::contoh_post::contoh_post)
         ;
 }
