@@ -7,8 +7,8 @@ edition = "2021"
 # Tries to order dependencies from most to least used
 reqwest = { version = "0.12.24", default-features = false, features = ["cookies", "json", "stream", "rustls-tls-webpki-roots-no-provider"] }
 actix-web = { version = "4.9.0", default-features = false, features = ["macros", "compress-brotli", "compress-gzip", "cookies", "http2", "unicode", "compat", "secure-cookies"] }
-actix-cors = "0.7.0"
-serde_json = "1.0.135"
+actix-cors = "0.7.1"
+serde_json = "1.0.145"
 dotenvy = "0.15.7"
 anyhow = "1.0.95"
 # Below are niche dependencies, remove if not needed
