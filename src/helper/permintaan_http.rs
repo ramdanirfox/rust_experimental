@@ -3,7 +3,7 @@ use reqwest::{redirect::Policy, ClientBuilder, Result};
 use rustls::time_provider::TimeProvider;
 use serde_json::{json, Value};
 use std::fmt::Debug;
-use crate::provider_example;
+use crate::{helper::rustls_noop_verifier, provider_example};
 use rustls_platform_verifier::BuilderVerifierExt;
 
 
@@ -19,6 +19,8 @@ impl TimeProvider for SystemTimeProvider {
             .map(rustls::pki_types::UnixTime::since_unix_epoch)
     }
 }
+
+
 
 pub async fn fn_dua() -> Result<()> {
     println!("Terpanggil Fn Dua!");
@@ -37,13 +39,27 @@ pub async fn fn_akses_http(paramurl: String) -> Result<Value> {
 
     let time_provider = Arc::new(SystemTimeProvider); 
 
+    // let config =
+    //     rustls::ClientConfig::builder_with_details(provider_example::provider().into(), time_provider)
+    //         .with_safe_default_protocol_versions()
+    //         .unwrap()
+    //         // .with_root_certificates(root_store)
+    //         .with_platform_verifier()
+    //         .with_no_client_auth();
+    
     let config =
         rustls::ClientConfig::builder_with_details(provider_example::provider().into(), time_provider)
             .with_safe_default_protocol_versions()
             .unwrap()
+            .dangerous()
             // .with_root_certificates(root_store)
-            .with_platform_verifier()
+            .with_custom_certificate_verifier(rustls_noop_verifier::NoopServerVerifier::new())
             .with_no_client_auth();
+
+    // let config = rustls::ClientConfig::builder()
+    //     .dangerous()
+    //     .with_custom_certificate_verifier(rustls_noop_verifier::NoopServerVerifier::new())
+    //     .with_no_client_auth();
      
     let url = format!("{}",
         paramurl
